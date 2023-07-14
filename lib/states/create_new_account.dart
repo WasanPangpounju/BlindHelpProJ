@@ -329,7 +329,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                 WidgetForm(
                   labelWidget: const WidgetText(data: 'บ้านเลขที่'),
                   textEditingController: houseNumberController,
-                  textInputType: TextInputType.number,
+                  textInputType: TextInputType.text,
                 ),
               ],
             );

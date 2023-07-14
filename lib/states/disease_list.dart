@@ -1,3 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:blindhelp/widgets/widget_edit_delete.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:blindhelp/models/disease_model.dart';
 import 'package:blindhelp/utility/app_constant.dart';
 import 'package:blindhelp/utility/app_controller.dart';
@@ -8,10 +14,6 @@ import 'package:blindhelp/widgets/widget_button.dart';
 import 'package:blindhelp/widgets/widget_form.dart';
 import 'package:blindhelp/widgets/widget_text.dart';
 import 'package:blindhelp/widgets/widget_text_rich.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get.dart';
 
 class DiseaseList extends StatefulWidget {
   const DiseaseList({super.key});
@@ -41,111 +43,98 @@ class _DiseaseListState extends State<DiseaseList> {
             ? const SizedBox()
             : ListView.builder(
                 itemCount: appController.userDiseaseModels.length,
-                itemBuilder: (context, index) => Slidable(
-                  key: const ValueKey(0),
-                  endActionPane: ActionPane(
-                      motion: const ScrollMotion(),
-                      extentRatio: 0.5,
-                      children: <Widget>[
-                        SlidableAction(
-                          onPressed: (context) {
-
-                            TextEditingController textEditingController =
-                                TextEditingController();
-                            textEditingController.text =
-                                appController.userDiseaseModels[index].disease;
-                            bool change = false;
-                            AppDialog(context: context).normalDialog(
-                                tilte: 'แก้ไข โรคประจำตัว',
-                                contentWidget: WidgetForm(
-                                  textEditingController: textEditingController,
-                                  changeFunc: (p0) {
-                                    change = true;
-                                  },
-                                ),
-                                firstAction: WidgetButton(
-                                    label: 'แก้ไข',
-                                    size: 120,
-                                    pressFunc: () {
-                                      if (change) {
-                                        //edit
-                                        Map<String, dynamic> map = appController
-                                            .userDiseaseModels[index]
-                                            .toMap();
-                                        map['disease'] =
-                                            textEditingController.text;
-                                        AppService()
-                                            .editDisease(
-                                                docIdDisease: appController
-                                                    .docIdDisease[index],
-                                                map: map)
-                                            .then((value) {
-                                          AppService().readDisease();
-                                          Get.back();
-                                        });
-                                      } else {
-                                        Get.back();
-                                      }
-                                    },
-                                    iconData: Icons.edit));
-
-                                    
-                          },
-                          icon: Icons.edit,
-                          label: 'แก้ไข',
-                          backgroundColor: AppConstant.blue,
-                          foregroundColor: Colors.white,
-                        ),
-                        SlidableAction(
-                          onPressed: (context) {
-                            AppDialog(context: context).normalDialog(
-                                tilte: 'ยืนยันลบ โรงประจำตัว',
-                                firstAction: WidgetButton(
-                                    size: 110,
-                                    label: 'ยืนยัน',
-                                    pressFunc: () {
-                                      AppService()
-                                          .deleteDisease(
-                                              docIdDisease: appController
-                                                  .docIdDisease[index])
-                                          .then((value) {
-                                        AppService().readDisease();
-                                        Get.back();
-                                      });
-                                    },
-                                    iconData: Icons.delete));
-                          },
-                          icon: Icons.delete,
-                          label: 'ลบ',
-                          backgroundColor: Colors.red,
-                        ),
-                      ]),
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(8),
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: AppConstant().borderBox(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        WidgetTextRich(
-                            title: 'โรคประจำตัว :',
-                            value:
-                                appController.userDiseaseModels[index].disease),
-                        WidgetTextRich(
-                            title: 'วันเดือนปี ที่บันทึก :',
-                            titleColor: AppConstant.bluelive,
-                            value: AppService().timeStampToString(
-                                timestamp: appController
-                                    .userDiseaseModels[index].timestamp)),
-                      ],
-                    ),
+                itemBuilder: (context, index) => Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: AppConstant().borderBox(),
+                  child: Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          WidgetTextRich(
+                              title: 'โรค : ',
+                              value: appController
+                                  .userDiseaseModels[index].disease),
+                          WidgetTextRich(
+                              title: 'วันเดือนปี ที่บันทึก :',
+                              titleColor: AppConstant.bluelive,
+                              value: AppService().timeStampToString(
+                                  timestamp: appController
+                                      .userDiseaseModels[index].timestamp)),
+                        ],
+                      ),
+                      const Spacer(),
+                      WidgetEditDelete(
+                        editFunc: () {
+                          processEdit(index, context);
+                        },
+                        deleteFunc: () {
+                          processDelete(context, index);
+                        },
+                      ),
+                    ],
                   ),
                 ),
               );
       }),
     );
+  }
+
+  void processDelete(BuildContext context, int index) {
+    AppDialog(context: context).normalDialog(
+        tilte: 'ยืนยันลบ โรงประจำตัว',
+        firstAction: WidgetButton(
+            size: 110,
+            label: 'ยืนยัน',
+            pressFunc: () {
+              AppService()
+                  .deleteDisease(
+                      docIdDisease: appController.docIdDisease[index])
+                  .then((value) {
+                AppService().readDisease();
+                Get.back();
+              });
+            },
+            iconData: Icons.delete));
+  }
+
+  void processEdit(int index, BuildContext context) {
+    TextEditingController textEditingController = TextEditingController();
+    textEditingController.text = appController.userDiseaseModels[index].disease;
+    bool change = false;
+    AppDialog(context: context).normalDialog(
+        tilte: 'แก้ไข โรคประจำตัว',
+        contentWidget: WidgetForm(
+          textEditingController: textEditingController,
+          changeFunc: (p0) {
+            change = true;
+          },
+        ),
+        firstAction: WidgetButton(
+            label: 'แก้ไข',
+            size: 120,
+            pressFunc: () {
+              if (change) {
+                //edit
+                Map<String, dynamic> map =
+                    appController.userDiseaseModels[index].toMap();
+                map['disease'] = textEditingController.text;
+                AppService()
+                    .editDisease(
+                        docIdDisease: appController.docIdDisease[index],
+                        map: map)
+                    .then((value) {
+                  AppService().readDisease();
+                  Get.back();
+                });
+              } else {
+                Get.back();
+              }
+            },
+            iconData: Icons.edit));
   }
 
   WidgetButton displayFloating(BuildContext context) {

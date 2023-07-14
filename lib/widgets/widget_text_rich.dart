@@ -24,7 +24,7 @@ class WidgetTextRich extends StatelessWidget {
     return Text.rich(
       TextSpan(
         text: title,
-        style: titleStyle ?? AppConstant().titleStyle(context: context, color: titleColor),
+        style: titleStyle ?? AppConstant().titleStyle(context: context, color: titleColor, fontSize: 13),
         children: [
           TextSpan(text: value, style: valueStyle ?? Theme.of(context).textTheme.bodyMedium)
         ],

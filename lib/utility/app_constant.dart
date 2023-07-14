@@ -10,13 +10,13 @@ class AppConstant {
     'อาสาสมัครสาธารณะสุขประจำหมู่บ้าน(อสม.)',
   ];
 
-  TextStyle titleStyle({required BuildContext context, Color? color}) =>
-      Theme.of(context).textTheme.titleMedium!.copyWith(
+  TextStyle titleStyle({required BuildContext context, Color? color, double? fontSize}) =>
+      Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: fontSize,
           color: color ?? Theme.of(context).primaryColor,
           fontWeight: FontWeight.w700);
 
-  BoxDecoration borderBox() => BoxDecoration(
-      border: Border.all(), borderRadius: BorderRadius.circular(4));
+  BoxDecoration borderBox({Color? bgColor}) => BoxDecoration(
+      border: Border.all(), borderRadius: BorderRadius.circular(4), color: bgColor);
 
   BoxDecoration gradientBox({required BuildContext context}) => BoxDecoration(
       gradient: RadialGradient(

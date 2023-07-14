@@ -44,6 +44,7 @@ class _AuthenState extends State<Authen> {
                   hint: 'ชื่อผู้ใช้หรืออีเมล',
                   prefixWidget: const Icon(Icons.person_3_outlined),
                   textEditingController: emailController,
+                  textInputType: TextInputType.emailAddress,
                 ),
               ],
             ),

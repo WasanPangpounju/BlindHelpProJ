@@ -5,6 +5,7 @@ import 'package:blindhelp/utility/app_dialog.dart';
 import 'package:blindhelp/utility/app_service.dart';
 import 'package:blindhelp/utility/app_snackbar.dart';
 import 'package:blindhelp/widgets/widget_button.dart';
+import 'package:blindhelp/widgets/widget_edit_delete.dart';
 import 'package:blindhelp/widgets/widget_form.dart';
 import 'package:blindhelp/widgets/widget_text.dart';
 import 'package:blindhelp/widgets/widget_text_rich.dart';
@@ -41,110 +42,100 @@ class _HistoryDrugListState extends State<HistoryDrugList> {
             ? const SizedBox()
             : ListView.builder(
                 itemCount: appController.historyDrugModels.length,
-                itemBuilder: (context, index) => Slidable(
-                  key: const ValueKey(0),
-                  endActionPane:
-                      ActionPane(motion: const ScrollMotion(), children: [
-                    SlidableAction(
-                      onPressed: (context) {
-
-                         TextEditingController textEditingController =
-                                TextEditingController();
-                            textEditingController.text =
-                                appController.historyDrugModels[index].historyDrug;
-                            bool change = false;
-                            AppDialog(context: context).normalDialog(
-                                tilte: 'แก้ไข ประวัติการแพ้ยา',
-                                contentWidget: WidgetForm(
-                                  textEditingController: textEditingController,
-                                  changeFunc: (p0) {
-                                    change = true;
-                                  },
-                                ),
-                                firstAction: WidgetButton(
-                                    label: 'แก้ไข',
-                                    size: 120,
-                                    pressFunc: () {
-                                      if (change) {
-                                        //edit
-                                        Map<String, dynamic> map = appController
-                                            .historyDrugModels[index]
-                                            .toMap();
-                                        map['historyDrug'] =
-                                            textEditingController.text;
-                                        AppService()
-                                            .editHistoryDrug(
-                                                docIdHistoryDrug: appController
-                                                    .docIdHistoryDrug[index],
-                                                map: map)
-                                            .then((value) {
-                                          AppService().readHistoryDrug();
-                                          Get.back();
-                                        });
-                                      } else {
-                                        Get.back();
-                                      }
-                                    },
-                                    iconData: Icons.edit));
-
-
-                      },
-                      icon: Icons.delete,
-                      label: 'แก้ไข',
-                      backgroundColor: AppConstant.blue,
-                      foregroundColor: Colors.white,
-                    ),
-                    SlidableAction(
-                      onPressed: (context) {
-                        AppDialog(context: context).normalDialog(
-                            tilte: 'ยืนยันลบ ประวัติการแพ้ย้า',
-                            firstAction: WidgetButton(
-                              label: 'ยืนยัน',
-                              pressFunc: () {
-                                AppService()
-                                    .deleteHistoryDrug(
-                                        docIdHIstoryDrug: appController
-                                            .docIdHistoryDrug[index])
-                                    .then((value) {
-                                  AppService().readHistoryDrug();
-                                  Get.back();
-                                });
-                              },
-                              iconData: Icons.delete,
-                              size: 110,
-                            ));
-                      },
-                      icon: Icons.delete,
-                      label: 'ลบ',
-                      backgroundColor: Colors.red,
-                    ),
-                  ]),
-                  child: Container(
+                itemBuilder: (context, index) => Container(
                     padding: const EdgeInsets.all(8),
                     width: double.infinity,
                     margin:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: AppConstant().borderBox(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
                       children: [
-                        WidgetTextRich(
-                            title: 'ประวัติการแพ้ยา :',
-                            value: appController
-                                .historyDrugModels[index].historyDrug),
-                        WidgetTextRich(
-                            title: 'วันเดือนปี ที่บันทึก :',
-                            titleColor: AppConstant.bluelive,
-                            value: AppService().timeStampToString(
-                                timestamp: appController
-                                    .historyDrugModels[index].timestamp)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            WidgetTextRich(
+                                title: 'แพ้ยา :',
+                                value: appController
+                                    .historyDrugModels[index].historyDrug),
+                            WidgetTextRich(
+                                title: 'วันเดือนปี ที่บันทึก :',
+                                titleColor: AppConstant.bluelive,
+                                value: AppService().timeStampToString(
+                                    timestamp: appController
+                                        .historyDrugModels[index].timestamp)),
+                          ],
+                        ),
+                        const Spacer(),
+                        WidgetEditDelete(
+                          editFunc: () {
+                            processEdit(index, context);
+                          },
+                          deleteFunc: () {
+                            processDelete(context, index);
+                          },
+                        )
                       ],
                     ),
                   ),
-                ),
               );
       }),
     );
+  }
+
+  void processDelete(BuildContext context, int index) {
+    AppDialog(context: context).normalDialog(
+        tilte: 'ยืนยันลบ ประวัติการแพ้ย้า',
+        firstAction: WidgetButton(
+          label: 'ยืนยัน',
+          pressFunc: () {
+            AppService()
+                .deleteHistoryDrug(
+                    docIdHIstoryDrug: appController.docIdHistoryDrug[index])
+                .then((value) {
+              AppService().readHistoryDrug();
+              Get.back();
+            });
+          },
+          iconData: Icons.delete,
+          size: 110,
+        ));
+  }
+
+  void processEdit(int index, BuildContext context) {
+    TextEditingController textEditingController = TextEditingController();
+    textEditingController.text =
+        appController.historyDrugModels[index].historyDrug;
+    bool change = false;
+    AppDialog(context: context).normalDialog(
+        tilte: 'แก้ไข ประวัติการแพ้ยา',
+        contentWidget: WidgetForm(
+          textEditingController: textEditingController,
+          changeFunc: (p0) {
+            change = true;
+          },
+        ),
+        firstAction: WidgetButton(
+            label: 'แก้ไข',
+            size: 120,
+            pressFunc: () {
+              if (change) {
+                //edit
+                Map<String, dynamic> map =
+                    appController.historyDrugModels[index].toMap();
+                map['historyDrug'] = textEditingController.text;
+                AppService()
+                    .editHistoryDrug(
+                        docIdHistoryDrug: appController.docIdHistoryDrug[index],
+                        map: map)
+                    .then((value) {
+                  AppService().readHistoryDrug();
+                  Get.back();
+                });
+              } else {
+                Get.back();
+              }
+            },
+            iconData: Icons.edit));
   }
 
   WidgetButton displayFloating(BuildContext context) {
