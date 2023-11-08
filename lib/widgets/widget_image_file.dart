@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 class WidgetImageFile extends StatelessWidget {
   const WidgetImageFile({
-    Key? key,
+    super.key,
     required this.file,
     this.size,
     this.boxFit,
-  }) : super(key: key);
+  });
 
   final File file;
   final double? size;

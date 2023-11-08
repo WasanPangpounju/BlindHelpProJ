@@ -1,9 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QrModel {
+  final String Hn;
   final String nameHospital;
   final String nameSurname;
   final String idHn;
@@ -15,6 +16,7 @@ class QrModel {
   final Timestamp expireDate;
   final String remark;
   QrModel({
+    required this.Hn,
     required this.nameHospital,
     required this.nameSurname,
     required this.idHn,
@@ -29,6 +31,7 @@ class QrModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'Hn': Hn,
       'nameHospital': nameHospital,
       'nameSurname': nameSurname,
       'idHn': idHn,
@@ -44,6 +47,7 @@ class QrModel {
 
   factory QrModel.fromMap(Map<String, dynamic> map) {
     return QrModel(
+      Hn: (map['Hn'] ?? '') as String,
       nameHospital: (map['nameHospital'] ?? '') as String,
       nameSurname: (map['nameSurname'] ?? '') as String,
       idHn: (map['idHn'] ?? '') as String,
@@ -52,7 +56,7 @@ class QrModel {
       howtoDrug: (map['howtoDrug'] ?? '') as String,
       properiesDrug: (map['properiesDrug'] ?? '') as String,
       warnningDrug: (map['warnningDrug'] ?? '') as String,
-      expireDate:(map['expireDate']  ?? Timestamp(0, 0)),
+      expireDate:(map['expireDate'] ?? Timestamp(0, 0)),
       remark: (map['remark'] ?? '') as String,
     );
   }

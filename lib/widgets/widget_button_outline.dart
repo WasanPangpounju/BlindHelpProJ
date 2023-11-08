@@ -5,11 +5,11 @@ import 'package:blindhelp/widgets/widget_text.dart';
 
 class WidgetButtonOutline extends StatelessWidget {
   const WidgetButtonOutline({
-    Key? key,
+    super.key,
     required this.label,
     required this.pressFunc,
     required this.iconData,
-  }) : super(key: key);
+  });
 
   final String label;
   final Function() pressFunc;

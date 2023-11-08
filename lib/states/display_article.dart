@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:blindhelp/utility/app_constant.dart';
 import 'package:blindhelp/widgets/widget_image_network.dart';
 import 'package:blindhelp/widgets/widget_text.dart';
 import 'package:blindhelp/widgets/widget_title.dart';
@@ -9,9 +8,9 @@ import 'package:blindhelp/models/article_model.dart';
 
 class DisplayArticle extends StatelessWidget {
   const DisplayArticle({
-    Key? key,
+    super.key,
     required this.articleModel,
-  }) : super(key: key);
+  });
 
   final ArticleModel articleModel;
 

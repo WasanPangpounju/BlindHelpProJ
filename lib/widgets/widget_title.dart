@@ -5,11 +5,11 @@ import 'package:blindhelp/widgets/widget_text.dart';
 
 class WidgetTitle extends StatelessWidget {
   const WidgetTitle({
-    Key? key,
+    super.key,
     required this.title,
     this.size,
     this.color,
-  }) : super(key: key);
+  });
 
   final String title;
   final double? size;

@@ -1,4 +1,3 @@
-import 'package:blindhelp/bodys/emergency_user.dart';
 import 'package:blindhelp/bodys/help_user.dart';
 import 'package:blindhelp/bodys/home_user.dart';
 import 'package:blindhelp/bodys/read_drug_lable.dart';

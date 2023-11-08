@@ -7,10 +7,10 @@ class WidgetEditDelete extends StatelessWidget {
   final Function() deleteFunc;
 
   const WidgetEditDelete({
-    Key? key,
+    super.key,
     required this.editFunc,
     required this.deleteFunc,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

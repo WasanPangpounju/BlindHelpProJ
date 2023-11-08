@@ -16,10 +16,10 @@ import 'package:blindhelp/widgets/widget_text.dart';
 
 class EditArticle extends StatefulWidget {
   const EditArticle({
-    Key? key,
+    super.key,
     required this.articleModel,
     required this.docIdArticle,
-  }) : super(key: key);
+  });
 
   final ArticleModel articleModel;
   final String docIdArticle;

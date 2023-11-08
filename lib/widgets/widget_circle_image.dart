@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class WidgetCircleImage extends StatelessWidget {
   const WidgetCircleImage({
-    Key? key,
+    super.key,
     this.imageProvider,
     this.radius,
-  }) : super(key: key);
+  });
 
   final ImageProvider? imageProvider;
   final double? radius;

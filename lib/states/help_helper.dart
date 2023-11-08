@@ -17,9 +17,9 @@ import 'package:blindhelp/widgets/widget_form.dart';
 
 class HelpHelper extends StatefulWidget {
   const HelpHelper({
-    Key? key,
+    super.key,
     required this.userModel,
-  }) : super(key: key);
+  });
 
   final UserModel userModel;
 

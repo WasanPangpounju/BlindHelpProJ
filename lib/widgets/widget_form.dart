@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class WidgetForm extends StatelessWidget {
   const WidgetForm({
-    Key? key,
+    super.key,
     this.hint,
     this.prefixWidget,
     this.subfixWidget,
@@ -16,7 +16,7 @@ class WidgetForm extends StatelessWidget {
     this.width,
     this.changeFunc,
     this.maxLine,
-  }) : super(key: key);
+  });
 
   final String? hint;
   final Widget? prefixWidget;
