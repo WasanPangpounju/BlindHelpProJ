@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "733041689264-uatekj76remgto2g5ppu816mc2galrbk.apps.googleusercontent.com",
+          "client_id": "733041689264-sdb9nfjmogmsupgpnvk7ik2m3gkgbv3m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wasan.blindhelp",
+            "certificate_hash": "827c66b0c94cda1c72928149ba6f618599c2652d"
+          }
+        },
+        {
+          "client_id": "733041689264-1hcq1qi7rh52sc6oorecf8ruffclldeo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "733041689264-uatekj76remgto2g5ppu816mc2galrbk.apps.googleusercontent.com",
+              "client_id": "733041689264-1hcq1qi7rh52sc6oorecf8ruffclldeo.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "733041689264-cl7hkq6mou099lje6q9p6k1pi0i83aeg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wasan.blindhelp"
+              }
             }
           ]
         }
