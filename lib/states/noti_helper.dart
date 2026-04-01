@@ -24,9 +24,9 @@ class _NotiHelperState extends State<NotiHelper> {
             children: [
               WidgetTextRich(title: 'สวัสดี', value: '  ${appController.userModelLogins.last.name} ${appController.userModelLogins.last.surName}'),
               
-              WidgetText(data: 'กล่องข้อความขอความช่วยเหลือล่าสุด 0 คน'),
-              WidgetText(data: 'รูปถ่ายฉลากยาล่าสุด 0 รายการ'),
-              WidgetText(data: 'บทความใหม่จำนวน 0 บทความ'),
+              const WidgetText(data: 'กล่องข้อความขอความช่วยเหลือล่าสุด 0 คน'),
+              const WidgetText(data: 'รูปถ่ายฉลากยาล่าสุด 0 รายการ'),
+              const WidgetText(data: 'บทความใหม่จำนวน 0 บทความ'),
             ],
           ),
         );

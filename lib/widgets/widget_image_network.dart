@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 class WidgetImageNewwork extends StatelessWidget {
   const WidgetImageNewwork({
-    Key? key,
+    super.key,
     required this.url,
     this.boxFit,
     this.width,
     this.height,
-  }) : super(key: key);
+  });
 
   final String url;
   final BoxFit? boxFit;
@@ -29,7 +29,7 @@ class WidgetImageNewwork extends StatelessWidget {
         width: 150,
         height: 150,
         alignment: Alignment.center,
-        child: WidgetText(data: 'ไม่มีรูปภาพ'),
+        child: const WidgetText(data: 'ไม่มีรูปภาพ'),
       ),
     );
   }

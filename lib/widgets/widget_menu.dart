@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class WidgetMemu extends StatelessWidget {
   const WidgetMemu({
-    Key? key,
+    super.key,
     required this.leadWidget,
     required this.titleWidget,
     this.tapFunc,
-  }) : super(key: key);
+  });
 
   final Widget leadWidget;
   final Widget titleWidget;

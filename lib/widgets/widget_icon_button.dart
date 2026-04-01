@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class WidgetIconButton extends StatelessWidget {
   const WidgetIconButton({
-    Key? key,
+    super.key,
     required this.iconData,
     required this.pressFunc,
     this.color,
     this.size,
-  }) : super(key: key);
+  });
 
   final IconData iconData;
   final Function() pressFunc;

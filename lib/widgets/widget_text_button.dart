@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class WidgetTextButton extends StatelessWidget {
   const WidgetTextButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.pressFunc,
-  }) : super(key: key);
+  });
 
   final String label;
   final Function() pressFunc;

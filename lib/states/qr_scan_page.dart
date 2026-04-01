@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:io';
-
 import 'package:blindhelp/states/display_result_qr_scan.dart';
 import 'package:blindhelp/utility/app_constant.dart';
 import 'package:blindhelp/widgets/widget_icon_button.dart';
@@ -9,7 +7,7 @@ import 'package:blindhelp/widgets/widget_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:scan/scan.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrScanPage extends StatefulWidget {
   const QrScanPage({super.key});
@@ -19,11 +17,12 @@ class QrScanPage extends StatefulWidget {
 }
 
 class _QrScanPageState extends State<QrScanPage> {
-  ScanController scanController = ScanController();
+  final MobileScannerController scanController = MobileScannerController();
+  bool hasNavigated = false;
 
   @override
   void dispose() {
-    scanController.pause();
+    scanController.dispose();
     super.dispose();
   }
 
@@ -33,11 +32,21 @@ class _QrScanPageState extends State<QrScanPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            ScanView(
+            MobileScanner(
               controller: scanController,
-              onCapture: (data) {
+              onDetect: (capture) {
+                if (hasNavigated) {
+                  return;
+                }
+                final String? data = capture.barcodes.isNotEmpty
+                    ? capture.barcodes.first.rawValue
+                    : null;
+                if (data == null || data.isEmpty) {
+                  return;
+                }
+                hasNavigated = true;
                 print('##28oct value scan ----> $data');
-                Get.off(DisplayResultQRscan(resultQR: data.toString()));
+                Get.off(DisplayResultQRscan(resultQR: data));
               },
             ),
             Positioned(
@@ -48,7 +57,7 @@ class _QrScanPageState extends State<QrScanPage> {
                   WidgetIconButton(
                     iconData: Icons.flash_on,
                     pressFunc: () {
-                      scanController.toggleTorchMode();
+                      scanController.toggleTorch();
                     },
                     size: 36,
                     color: Colors.white,
@@ -94,13 +103,16 @@ class _QrScanPageState extends State<QrScanPage> {
                       var result = await ImagePicker()
                           .pickImage(source: ImageSource.gallery);
                       if (result != null) {
-                        File file = File(result.path);
-                        await Scan.parse(file.path).then((value) {
-                          print('##30oct value scan ---> $value');
-                          if (value != null) {
-                            Get.off(DisplayResultQRscan(resultQR: value));
-                          }
-                        });
+                        final BarcodeCapture? capture =
+                            await scanController.analyzeImage(result.path);
+                        final String? value = capture != null &&
+                                capture.barcodes.isNotEmpty
+                            ? capture.barcodes.first.rawValue
+                            : null;
+                        print('##30oct value scan ---> $value');
+                        if (value != null && value.isNotEmpty) {
+                          Get.off(DisplayResultQRscan(resultQR: value));
+                        }
                       }
                     },
                     size: 36,

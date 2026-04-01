@@ -5,14 +5,14 @@ import 'package:blindhelp/widgets/widget_text.dart';
 
 class WidgetButton extends StatelessWidget {
   const WidgetButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.pressFunc,
     required this.iconData,
     this.size,
     this.colorIcon,
     this.color,
-  }) : super(key: key);
+  });
 
   final String label;
   final Function() pressFunc;

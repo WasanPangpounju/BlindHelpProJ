@@ -1,6 +1,4 @@
-import 'package:blindhelp/bodys/emergency_user.dart';
 import 'package:blindhelp/bodys/help_user.dart';
-import 'package:blindhelp/bodys/home_user.dart';
 import 'package:blindhelp/bodys/read_drug_lable.dart';
 import 'package:blindhelp/states/disease_list.dart';
 import 'package:blindhelp/states/edit_disibility.dart';
@@ -8,6 +6,7 @@ import 'package:blindhelp/states/edit_profile_user.dart';
 import 'package:blindhelp/states/read_article.dart';
 import 'package:blindhelp/states/historu_drug_list.dart';
 import 'package:blindhelp/states/personal_medication.dart';
+import 'package:blindhelp/states/web_view_user.dart';
 import 'package:blindhelp/utility/app_controller.dart';
 import 'package:blindhelp/utility/app_service.dart';
 import 'package:blindhelp/widgets/widget_header_drawer.dart';
@@ -40,7 +39,7 @@ class _MainUserState extends State<MainUser> {
   ];
 
   var bodys = <Widget>[
-    const HomeUser(),
+    const WebViewUser(),
     const ReadArticle(),
     const ReadDrugLabel(),
     const HelpUser(),

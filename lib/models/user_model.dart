@@ -27,6 +27,7 @@ class UserModel {
   final String? height;
   final String? urlAvatar;
   final String? disibility;
+  final bool? activeAccount;
   UserModel({
     required this.uid,
     required this.typeUser,
@@ -51,6 +52,7 @@ class UserModel {
     this.height,
     this.urlAvatar,
     this.disibility,
+    this.activeAccount,
   });
 
   Map<String, dynamic> toMap() {
@@ -78,12 +80,13 @@ class UserModel {
       'height': height,
       'urlAvatar': urlAvatar,
       'disibility': disibility,
+      'activeAccount': activeAccount,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: (map['uid'] ?? '') as String,
+     uid: (map['uid'] ?? '') as String,
       typeUser: (map['typeUser'] ?? '') as String,
       name: (map['name'] ?? '') as String,
       surName: (map['surName'] ?? '') as String,
@@ -106,6 +109,7 @@ class UserModel {
       height: (map['height'] ?? '') as String,
       urlAvatar: (map['urlAvatar'] ?? '') as String,
       disibility: (map['disibility'] ?? '') as String,
+      activeAccount: (map['activeAccount'] ?? true) as bool,
     );
   }
 

@@ -3,6 +3,7 @@ import 'package:blindhelp/states/create_new_account.dart';
 import 'package:blindhelp/utility/app_constant.dart';
 import 'package:blindhelp/utility/app_controller.dart';
 import 'package:blindhelp/utility/app_dialog.dart';
+import 'package:blindhelp/utility/app_service.dart';
 import 'package:blindhelp/utility/app_snackbar.dart';
 import 'package:blindhelp/widgets/widget_button.dart';
 import 'package:blindhelp/widgets/widget_button_outline.dart';
@@ -13,6 +14,8 @@ import 'package:blindhelp/widgets/widget_text_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -120,7 +123,6 @@ class _AuthenState extends State<Authen> {
                             .doc(uid)
                             .get()
                             .then((value) async {
-                              
                           if (appController.remember.value) {
                             SharedPreferences preferences =
                                 await SharedPreferences.getInstance();
@@ -170,6 +172,15 @@ class _AuthenState extends State<Authen> {
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SignInButton(Buttons.GoogleDark, onPressed: () {
+                  AppService().processGoogleAccountSignIn();
+                }, elevation: 0),
+              ],
+            )
           ],
         ),
       ),

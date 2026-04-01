@@ -9,6 +9,7 @@ import 'package:blindhelp/widgets/widget_button.dart';
 import 'package:blindhelp/widgets/widget_circle_image.dart';
 import 'package:blindhelp/widgets/widget_circle_image_file.dart';
 import 'package:blindhelp/widgets/widget_circle_image_network.dart';
+import 'package:blindhelp/widgets/widget_delete_account.dart';
 import 'package:blindhelp/widgets/widget_form.dart';
 import 'package:blindhelp/widgets/widget_icon_button.dart';
 import 'package:blindhelp/widgets/widget_text.dart';
@@ -243,6 +244,10 @@ class _EditProfileUserState extends State<EditProfileUser> {
             height: 12,
           ),
           editButton(context, appController: appController),
+          const SizedBox(
+            height: 8,
+          ),
+          const WidgetDeleteAccount(),
           const SizedBox(
             height: 8,
           ),

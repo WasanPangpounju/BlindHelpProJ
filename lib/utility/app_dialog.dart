@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, deprecated_member_use
 import 'package:blindhelp/widgets/widget_image_asset.dart';
 import 'package:blindhelp/widgets/widget_progress.dart';
 import 'package:blindhelp/widgets/widget_text.dart';

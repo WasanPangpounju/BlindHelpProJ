@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class WidgetImageAsset extends StatelessWidget {
   const WidgetImageAsset({
-    Key? key,
+    super.key,
     this.size,
     this.path,
     this.boxFit,
-  }) : super(key: key);
+  });
 
   final double? size;
   final String? path;

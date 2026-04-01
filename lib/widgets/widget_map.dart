@@ -4,9 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class WidgetMap extends StatelessWidget {
   const WidgetMap({
-    Key? key,
+    super.key,
     this.latLng,
-  }) : super(key: key);
+  });
 
   final LatLng? latLng;
 

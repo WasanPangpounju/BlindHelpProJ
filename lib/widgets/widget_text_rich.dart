@@ -5,13 +5,13 @@ import 'package:blindhelp/utility/app_constant.dart';
 
 class WidgetTextRich extends StatelessWidget {
   const WidgetTextRich({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     this.titleColor,
     this.titleStyle,
     this.valueStyle,
-  }) : super(key: key);
+  });
 
   final String title;
   final String value;

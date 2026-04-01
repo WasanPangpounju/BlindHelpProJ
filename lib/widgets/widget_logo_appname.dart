@@ -25,10 +25,10 @@ class WidgetLogoAppName extends StatelessWidget {
               data: 'Blind Help',
               textStyle: Theme.of(context).textTheme.titleLarge,
             ),
-            WidgetText(
-              data: 'ระบบแสดงข้อมูลผู้ป่วยและ อสม.',
-              textStyle: Theme.of(context).textTheme.bodySmall,
-            )
+            // WidgetText(
+            //   data: 'ระบบแสดงข้อมูลผู้ป่วยและ อสม.',
+            //   textStyle: Theme.of(context).textTheme.bodySmall,
+            // )
           ],
         )
       ],
